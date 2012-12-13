@@ -16,11 +16,20 @@
 
 $(function() {
 
+  // Used for accessing the GCS JSON API.
   var GCS_BASE_URL = 'https://www.googleapis.com/storage/v1beta1';
+
+  // Used for downloading the contents of a file through CORS.
   var GCS_DOWNLOAD_URL = 'http://' + GCS_BUCKET + '.storage.googleapis.com';
+
+  // XHR request objects returned from $.ajax.
   var metadata_xhr = null;
   var contents_xhr = null;
 
+  /*
+   * Forms a URL to the GCS JSON API given a path and an optional list of query
+   * parameters to include.
+   */
   function make_gcs_url(path, params) {
     var query_string = '?key=' + GCS_API_KEY;
     if (params != undefined) {
@@ -31,6 +40,12 @@ $(function() {
     return GCS_BASE_URL + path + query_string;
   };
 
+  /*
+   * Converts a GCS object name to a name for showing to the user. The object
+   * name from GCS's perspective is opaque, but we treat / characters as having
+   * a special meaning. The display name of an object is its last component,
+   * e.g. the display name of /foo/bar is just bar.
+   */
   function display_name(s) {
     var i, pieces = s.split('/');
     for (i = pieces.length - 1; i >= 0; i--) {
@@ -41,6 +56,12 @@ $(function() {
     return 'ERROR';
   };
 
+  /*
+   * Converts the GCS JSON API object listing result to jsTree JSON data format.
+   * For details, see:
+   *   https://developers.google.com/storage/docs/json_api/v1/objects/list
+   *   http://www.jstree.com/documentation/json_data
+   */
   function convert_gcs_to_jstree(data) {
     var i, item, prefix, results = [];
 
@@ -66,6 +87,12 @@ $(function() {
     return results;
   };
 
+  /*
+   * Fetches the contents of a jsTree directory on-demand when requested by a
+   * user clicking to expand a prefix in the tree. The initial value for the
+   * root of the tree is -1. For details on the function arguments, see:
+   *   http://www.jstree.com/documentation/json_data
+   */
   function data_fetch(node, data_callback) {
     if (node == -1) {
       $.ajax({
@@ -82,12 +109,16 @@ $(function() {
            'prefix': node.attr('gcs_id')}),
         dataType: 'json',
         success: function(data, textStatus, xhr) {
-        data_callback(convert_gcs_to_jstree(data));
+          data_callback(convert_gcs_to_jstree(data));
         }
       });
     }
   };
 
+  /*
+   * Fetches the contents of the selected file in the tree via an AJAX call to
+   * the file's URL. The response can be retrieved because of CORS headers.
+   */
   function fetch_contents() {
     var gcs_id, contents_url;
     $('#btn-fetch-file').attr('disabled', 'disabled');
@@ -110,6 +141,10 @@ $(function() {
     });
   }
 
+  /*
+   * Given the JSON metadata response about an object in GCS, places a
+   * description list into the file metadata box.
+   */
   function fill_metadata(data) {
     var dlstr = '<dl  class="dl-horizontal">';
     dlstr += '<dt>Content-Type</dt><dd>' + data.media.contentType + '</dd>';
@@ -124,6 +159,9 @@ $(function() {
     $('#btn-fetch-file').bind('click', fetch_contents);
   }
 
+  /*
+   * Fetches metadata about a GCS object when a node in the tree is clicked.
+   */
   function node_clicked(event, data) {
     var node, gcs_id, metadata_url;
     if (metadata_xhr !== null) {
