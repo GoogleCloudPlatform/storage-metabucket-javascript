@@ -1,0 +1,2 @@
+var GCS_API_KEY = 'AIzaSyAsvL4HOqwjW9NEMLj4BEV2Cnt18te_8Co';
+var GCS_BUCKET = 'jterrace-jstree';
