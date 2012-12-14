@@ -7,5 +7,4 @@ Configuration]
 (https://developers.google.com/storage/docs/website-configuration), thereby
 creating a bucket that displays its own content.
 
-## You can [view a live demo here]
-(http://jterrace-jstree.storage.googleapis.com/index.html).
+## You can [view a live demo here](http://jterrace-jstree.storage.googleapis.com/index.html).
