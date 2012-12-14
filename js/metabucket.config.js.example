@@ -1,0 +1,6 @@
+/* Put your simple API key here. See:
+ *     https://developers.google.com/storage/docs/json_api/v1/how-tos/authorizing#APIKey
+ */
+var GCS_API_KEY = '';
+/* This is the name of your bucket. */
+var GCS_BUCKET = '';

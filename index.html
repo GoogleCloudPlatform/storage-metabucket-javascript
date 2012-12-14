@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Metabucket = Google Cloud Storage</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/metabucket.css" rel="stylesheet" media="screen">
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.jstree.js"></script>
+
+  <script type="text/javascript" src="js/metabucket.config.js"></script>
+  <script type="text/javascript" src="js/metabucket.js"></script>
+
+  <meta charset="UTF-8">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="page-header">
+        <h1>Metabucket <small>Google Cloud Storage self-displaying bucket</small></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4">
+        <h3>Bucket Contents</h3>
+      </div>
+      <div class="offset1 span7">
+        <h3>File Metadata</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4"><div id="jstree-gcs-demo" class="well"></div></div>
+      <div class="offset1 span7"><div id="file-props" class="well"></div></div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <h3>File Contents</h3>
+        <pre class="pre-scrollable" id="file-contents"></pre>
+      </div>
+    </div>
+    <div class="row">
+      <hr/>
+      <div class="span12 footer">
+        <small>
+          Created using
+          <a href="https://cloud.google.com/products/cloud-storage">Google Cloud Storage</a>
+          <a href="https://developers.google.com/storage/docs/json_api/">JSON API</a>,
+          <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>,
+          <a href="http://jquery.com/">jQuery</a>,
+          <a href="http://www.jstree.com/">jsTree</a>,
+          and some glue.
+          <br>
+          The code for this demo lives in the
+          <a href="https://github.com/GoogleCloudPlatform/storage-metabucket-javascript">
+            storage-metabucket-javascript GitHub repository
+          </a>.
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <hr/>
+      <h4>Notes:</h4>
+      <ul>
+      <li>File tree renders progressively.</li>
+      <li>No server-side scripts.</li>
+      <li>Bucket is <a href="https://developers.google.com/storage/docs/cross-origin">CORS-enabled.</a></li>
+      <li>Bucket has <a href="https://developers.google.com/storage/docs/website-configuration">Website Configuration</a> enabled.</li>
+      <li>Bucket has a public-read <a href="https://developers.google.com/storage/docs/accesscontrol">access control</a> set.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
