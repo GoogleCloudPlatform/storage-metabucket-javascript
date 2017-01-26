@@ -17,7 +17,7 @@
 $(function() {
 
   // Used for accessing the GCS JSON API.
-  var GCS_BASE_URL = 'https://www.googleapis.com/storage/v1beta1';
+  var GCS_BASE_URL = 'https://www.googleapis.com/storage/v1';
 
   // Used for downloading the contents of a file through CORS.
   var GCS_DOWNLOAD_URL = 'http://' + GCS_BUCKET + '.storage.googleapis.com';
@@ -79,7 +79,7 @@ $(function() {
     if (data.items !== undefined) {
       for (i = 0; i < data.items.length; i++) {
         item = data.items[i];
-        results.push({'data': display_name(item.id),
+        results.push({'data': display_name(item.name),
                       'attr': {'gcs_id': item.name}});
       }
     }
@@ -147,11 +147,11 @@ $(function() {
    */
   function fill_metadata(data) {
     var dlstr = '<dl  class="dl-horizontal">';
-    dlstr += '<dt>Content-Type</dt><dd>' + data.media.contentType + '</dd>';
-    dlstr += '<dt>Hash</dt><dd>' + data.media.algorithm + ':' +
-             data.media.hash + '</dd>';
-    dlstr += '<dt>Length</dt><dd>' + data.media.length + '</dd>';
-    dlstr += '<dt>Created</dt><dd>' + data.media.timeCreated + '</dd>';
+    dlstr += '<dt>Content-Type</dt><dd>' + data.contentType + '</dd>';
+    dlstr += '<dt>MD5</dt><dd>' + data.md5Hash + '</dd>';
+    dlstr += '<dt>crc32c</dt><dd>' + data.crc32c + '</dd>';
+    dlstr += '<dt>Size</dt><dd>' + data.size + '</dd>';
+    dlstr += '<dt>Created</dt><dd>' + data.timeCreated + '</dd>';
     dlstr += '</dl><br/>';
     dlstr += '<center><button id="btn-fetch-file" class="btn btn-primary">' +
              'Fetch File</button></center>';
